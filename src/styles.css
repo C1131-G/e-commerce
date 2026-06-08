@@ -1,0 +1,721 @@
+:root {
+  color: #17211c;
+  background: #f5f7f3;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.layoutShell {
+  display: grid;
+  grid-template-columns: 278px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #173f35;
+  color: #f7fbf8;
+  padding: 22px 16px;
+}
+
+.sidebarHeader,
+.brandMark,
+.navbar,
+.topSearch,
+.userBadge,
+.pageTitle,
+.panelHeader,
+.toolbar,
+.actionRow,
+.progressTop,
+.notificationTop,
+.mapFooter,
+.cardHeader,
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sidebarHeader,
+.navbar,
+.pageTitle,
+.panelHeader,
+.toolbar,
+.progressTop,
+.notificationTop,
+.mapFooter,
+.cardHeader {
+  justify-content: space-between;
+}
+
+.brandMark span {
+  font-size: 1.12rem;
+  font-weight: 850;
+}
+
+.sideNav {
+  display: grid;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.sideLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #dceae4;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 750;
+}
+
+.sideLink.active,
+.sideLink:hover {
+  background: #2c5d4f;
+  color: #ffffff;
+}
+
+.mainArea {
+  min-width: 0;
+}
+
+.navbar {
+  min-height: 72px;
+  padding: 14px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #dfe8e1;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.topSearch {
+  flex: 1;
+  max-width: 680px;
+  background: #f4f7f5;
+  border: 1px solid #d8e2dc;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.topSearch input,
+.searchBox input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 11px 0;
+}
+
+.userBadge {
+  background: #eef4f0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 800;
+}
+
+.pageContainer {
+  padding: 26px;
+}
+
+.pageStack {
+  display: grid;
+  gap: 18px;
+}
+
+.pageTitle h1,
+.panelHeader h2,
+.loginBrand h1,
+.profileHeader h2 {
+  margin: 0;
+  line-height: 1.12;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: #627267;
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.panel,
+.farmerCard,
+.notificationCard,
+.mapCard,
+.summaryCard {
+  background: #ffffff;
+  border: 1px solid #dde7e0;
+  border-radius: 8px;
+}
+
+.panel,
+.farmerCard,
+.notificationCard,
+.summaryCard {
+  padding: 18px;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton,
+.iconButton {
+  border: 0;
+  border-radius: 8px;
+  min-height: 40px;
+  padding: 9px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 850;
+}
+
+.primaryButton {
+  background: #217a5a;
+  color: #ffffff;
+}
+
+.secondaryButton,
+.iconButton {
+  background: #e8eee9;
+  color: #26372d;
+}
+
+.dangerButton {
+  background: #ffe1e1;
+  color: #a51717;
+}
+
+.textLink {
+  color: #176f51;
+  font-weight: 850;
+}
+
+.summaryGrid,
+.farmerCardsGrid,
+.infoGrid,
+.routeGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.summaryCard {
+  display: grid;
+  gap: 8px;
+}
+
+.summaryCard strong {
+  font-size: 2rem;
+}
+
+.summaryCard.blue {
+  border-top: 4px solid #377bd1;
+}
+
+.summaryCard.amber {
+  border-top: 4px solid #d28a20;
+}
+
+.summaryCard.green {
+  border-top: 4px solid #26985a;
+}
+
+.summaryCard.red {
+  border-top: 4px solid #d14646;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.8fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.tableFrame {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e4ebe6;
+  padding: 13px;
+  text-align: left;
+}
+
+th {
+  color: #5c6c63;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+td small {
+  display: block;
+  color: #65736a;
+}
+
+.priorityBadge,
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.priorityBadge.high {
+  background: #ffd7d7;
+  color: #9c1515;
+}
+
+.priorityBadge.medium {
+  background: #ffe9b9;
+  color: #945a00;
+}
+
+.statusBadge {
+  background: #e9f0ff;
+  color: #17458f;
+}
+
+.toolbar {
+  align-items: stretch;
+}
+
+.searchBox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #ffffff;
+  border: 1px solid #d8e2dc;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.farmerCardsGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.farmerCard h3,
+.farmerCard p {
+  margin: 0;
+}
+
+.farmerCard p,
+.mutedText,
+.flowText,
+.profileHeader p,
+.notificationCard p {
+  color: #53645a;
+}
+
+.miniGrid {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.miniGrid span,
+.documentList span,
+.infoGrid span,
+.routeGrid span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+
+.profileHeader {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.avatarCircle,
+.notificationIcon,
+.stepIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: #e6f4ec;
+  color: #217a5a;
+  display: inline-grid;
+  place-items: center;
+}
+
+.infoGrid,
+.routeGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.infoGrid span,
+.routeGrid span {
+  align-items: flex-start;
+  flex-direction: column;
+  background: #f7faf8;
+  border: 1px solid #e3ebe5;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.documentList {
+  display: grid;
+  gap: 10px;
+}
+
+.mapCard {
+  min-height: 260px;
+  padding: 18px;
+  display: grid;
+  align-content: space-between;
+  background:
+    linear-gradient(90deg, rgba(33, 122, 90, 0.15) 1px, transparent 1px),
+    linear-gradient(rgba(33, 122, 90, 0.15) 1px, transparent 1px), #edf5ef;
+  background-size: 34px 34px;
+}
+
+.mapCard.large {
+  min-height: 430px;
+}
+
+.mapGrid {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 8px;
+  color: #28513f;
+}
+
+.mapFooter {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 850;
+}
+
+.stageMiniList,
+.reportStageList {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.stageMiniList a,
+.reportStageList article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #f7faf8;
+  border: 1px solid #e3ebe5;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.verificationPage {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.stepper {
+  background: #ffffff;
+  border: 1px solid #dde7e0;
+  border-radius: 8px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  position: sticky;
+  top: 92px;
+}
+
+.stepLink {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 18px;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #e3ebe5;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.stepLink.active {
+  border-color: #217a5a;
+  background: #edf8f2;
+}
+
+.stepLink small {
+  display: block;
+  color: #607168;
+}
+
+.progressBar {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e8eee9;
+  margin: 10px 0 14px;
+}
+
+.progressBar span {
+  display: block;
+  height: 100%;
+  background: #217a5a;
+}
+
+.flowText {
+  background: #f7faf8;
+  border-left: 4px solid #217a5a;
+  margin: 0;
+  padding: 12px;
+}
+
+.checklistGrid,
+.formGrid,
+.reportForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.checkTile {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  background: #f7faf8;
+  border: 1px solid #e3ebe5;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 750;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-weight: 750;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #ccd8d0;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #ffffff;
+  color: #17211c;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.wideField {
+  grid-column: 1 / -1;
+}
+
+.actionRow {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.nextAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.notificationList {
+  display: grid;
+  gap: 12px;
+}
+
+.notificationCard {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
+}
+
+.loginScreen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(23, 63, 53, 0.84), rgba(23, 63, 53, 0.64)),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80")
+      center/cover;
+}
+
+.loginCard {
+  width: min(900px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.28);
+}
+
+.loginBrand {
+  background: #173f35;
+  color: #ffffff;
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginBrand p {
+  color: #dceae4;
+}
+
+.loginForm {
+  padding: 44px;
+  display: grid;
+  gap: 18px;
+}
+
+.formMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #607168;
+}
+
+.formMeta a {
+  color: #176f51;
+  font-weight: 850;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .layoutShell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 278px;
+    z-index: 30;
+    transform: translateX(-100%);
+    transition: transform 160ms ease;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .mobileOnly {
+    display: inline-flex;
+  }
+
+  .verificationPage,
+  .splitGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stepper {
+    position: static;
+  }
+
+  .summaryGrid,
+  .farmerCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .pageContainer,
+  .navbar {
+    padding: 16px;
+  }
+
+  .pageTitle,
+  .toolbar,
+  .panelHeader,
+  .formMeta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summaryGrid,
+  .farmerCardsGrid,
+  .infoGrid,
+  .routeGrid,
+  .checklistGrid,
+  .formGrid,
+  .reportForm,
+  .loginCard {
+    grid-template-columns: 1fr;
+  }
+
+  .loginBrand,
+  .loginForm {
+    padding: 28px;
+  }
+
+  .notificationCard {
+    grid-template-columns: 1fr;
+  }
+
+  .cardActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
