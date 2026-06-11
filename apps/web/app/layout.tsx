@@ -1,7 +1,8 @@
 import { cn } from "@workspace/ui/lib/utils";
+import { Geist_Mono, Inter, Roboto } from "next/font/google";
+import { Toaster } from "sonner";
 
 import "@workspace/ui/globals.css";
-import { Geist_Mono, Inter, Roboto } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -35,7 +36,10 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <Toaster position="top-right" richColors closeButton />
+        </ThemeProvider>
       </body>
     </html>
   );
