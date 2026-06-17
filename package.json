@@ -6,10 +6,16 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:open": "node ./scripts/start-dev-and-open.js",
     "typecheck": "turbo typecheck",
     "check": "ultracite check",
     "fix": "ultracite fix",
     "prepare": "husky"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "react-hook-form": "^7.79.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",

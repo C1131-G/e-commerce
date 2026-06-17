@@ -1,34 +1,35 @@
-'use client';
+"use client";
 
-import { FormEvent, useState } from 'react';
-import Link from 'next/link';
+import Link from "next/link";
+import type { FormEvent } from "react";
+import { useState } from "react";
 
-export default function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+const RegisterPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!name || !email || !password || !confirmPassword) {
-      setMessage('Please fill out all fields.');
+      setMessage("Please fill out all fields.");
       return;
     }
 
     if (password !== confirmPassword) {
-      setMessage('Passwords do not match.');
+      setMessage("Passwords do not match.");
       return;
     }
 
-    setMessage('Creating your account...');
+    setMessage("Creating your account...");
 
     setTimeout(() => {
       setMessage(`Account created for ${name}. You can now log in.`);
     }, 800);
-  }
+  };
 
   return (
     <main className="auth-page">
@@ -43,6 +44,7 @@ export default function RegisterPage() {
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              aria-label="Full name"
               placeholder="Your full name"
             />
           </label>
@@ -53,6 +55,7 @@ export default function RegisterPage() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              aria-label="Email address"
               placeholder="you@example.com"
             />
           </label>
@@ -63,6 +66,7 @@ export default function RegisterPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              aria-label="Password"
               placeholder="Create a password"
             />
           </label>
@@ -73,6 +77,7 @@ export default function RegisterPage() {
               type="password"
               value={confirmPassword}
               onChange={(event) => setConfirmPassword(event.target.value)}
+              aria-label="Confirm password"
               placeholder="Repeat your password"
             />
           </label>
@@ -161,7 +166,9 @@ export default function RegisterPage() {
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
-          transition: transform 0.15s ease, background-color 0.15s ease;
+          transition:
+            transform 0.15s ease,
+            background-color 0.15s ease;
         }
 
         button:hover {
@@ -191,4 +198,6 @@ export default function RegisterPage() {
       `}</style>
     </main>
   );
-}
+};
+
+export default RegisterPage;

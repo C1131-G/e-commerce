@@ -1,65 +1,56 @@
 export default function FarmerDashboard() {
   const stats = [
     {
+      icon: "🌾",
       title: "Active Listings",
       value: "12",
-      icon: "🌾",
     },
     {
+      icon: "📦",
       title: "Total Stock",
       value: "850 KG",
-      icon: "📦",
     },
     {
+      icon: "🛒",
       title: "Pending Orders",
       value: "5",
-      icon: "🛒",
     },
     {
+      icon: "💰",
       title: "Revenue",
       value: "₹25,000",
-      icon: "💰",
     },
   ];
 
   const products = [
     {
       name: "Tomato",
-      stock: "100 KG",
       status: "Approved",
+      stock: "100 KG",
     },
     {
       name: "Onion",
-      stock: "50 KG",
       status: "Pending",
+      stock: "50 KG",
     },
     {
       name: "Potato",
-      stock: "20 KG",
       status: "Rejected",
+      stock: "20 KG",
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-4xl font-bold mb-6">
-        👨‍🌾 Farmer Dashboard
-      </h1>
+      <h1 className="text-4xl font-bold mb-6">👨‍🌾 Farmer Dashboard</h1>
 
       {/* Stats Cards */}
       <div className="grid md:grid-cols-4 gap-4 mb-8">
         {stats.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white p-5 rounded-xl shadow-md"
-          >
+          <div key={index} className="bg-white p-5 rounded-xl shadow-md">
             <div className="text-3xl">{item.icon}</div>
-            <h2 className="text-lg font-semibold mt-2">
-              {item.title}
-            </h2>
-            <p className="text-2xl font-bold text-green-600">
-              {item.value}
-            </p>
+            <h2 className="text-lg font-semibold mt-2">{item.title}</h2>
+            <p className="text-2xl font-bold text-green-600">{item.value}</p>
           </div>
         ))}
       </div>
@@ -82,9 +73,7 @@ export default function FarmerDashboard() {
 
       {/* Product Listings */}
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4">
-          🌱 My Listings
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">🌱 My Listings</h2>
 
         <table className="w-full border">
           <thead>

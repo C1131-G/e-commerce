@@ -1,183 +1,93 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { FormEvent } from "react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { loginSchema } from "./schemas/login-schema";
+import type { LoginSchema } from "./schemas/login-schema";
+
+import styles from "./login.module.css";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!email || !password) {
-      setMessage("Please enter both email and password.");
-      return;
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginSchema>({ resolver: zodResolver(loginSchema) });
 
-    setMessage("Logging in...");
+  const onSubmit = (data: LoginSchema) => {
+    setMessage(`TODO: Integrate Better Auth for ${data.email}`);
 
-    // Replace this with your real auth logic.
-    setTimeout(() => {
-      setMessage(`Welcome back, ${email}!`);
-      // After showing the welcome message, navigate to the dashboard
-      router.push("/Farmer-dashboard");
-    }, 600);
-  }
+    // eslint-disable-next-line no-warning-comments
+    // TODO: Integrate Better Auth here. Example:
+    // const res = await betterAuth.login({ email: data.email, password: data.password });
+    // if (res.ok) { router.push('/Farmer-dashboard'); }
+  };
 
   return (
-    <main className="login-page">
-      <div className="login-card">
+    <main className={styles.loginPage}>
+      <div className={styles.loginCard}>
         <h1>Login</h1>
-        <p className="subtitle">
+        <p className={styles.subtitle}>
           Access your account with your email and password.
         </p>
 
-        <form onSubmit={handleSubmit} className="login-form">
-          <label>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={styles.loginForm}
+          noValidate
+        >
+          <label className={styles.label}>
             Email
             <input
+              {...register("email")}
+              name="email"
               type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              className={styles.input}
               placeholder="you@example.com"
+              aria-invalid={errors.email ? "true" : "false"}
             />
+            {errors.email ? (
+              <p className={styles.fieldError}>{errors.email.message}</p>
+            ) : null}
           </label>
 
-          <label>
+          <label className={styles.label}>
             Password
             <input
+              {...register("password")}
+              name="password"
               type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              className={styles.input}
               placeholder="Enter your password"
+              aria-invalid={errors.password ? "true" : "false"}
             />
+            {errors.password ? (
+              <p className={styles.fieldError}>{errors.password.message}</p>
+            ) : null}
           </label>
 
-          <button type="submit">Sign In</button>
+          <button
+            type="submit"
+            className={styles.button}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Signing in..." : "Sign In"}
+          </button>
         </form>
 
-        {message ? <p className="message">{message}</p> : null}
+        {message ? <p className={styles.message}>{message}</p> : null}
 
-        <p className="footer-text">
+        <p className={styles.footerText}>
           <Link href="/register">Create an account</Link>
-          <span> · </span>
+          <span className={styles.dot}> · </span>
           <Link href="/forgot-password">Forgot password?</Link>
         </p>
       </div>
-
-      <style jsx>{`
-        .login-page {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 24px;
-          background: #f3fbf4;
-          color: #0f172a;
-        }
-
-        .login-card {
-          width: min(420px, 100%);
-          padding: 32px;
-          border-radius: 24px;
-          background: #ffffff;
-          border: 1px solid #d8efd4;
-          box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-        }
-
-        h1 {
-          margin: 0 0 12px;
-          font-size: 2rem;
-          letter-spacing: -0.04em;
-          color: #064e3b;
-        }
-
-        .subtitle {
-          margin: 0 0 24px;
-          color: #14532d;
-          line-height: 1.6;
-        }
-
-        .login-form {
-          display: grid;
-          gap: 16px;
-        }
-
-        label {
-          display: grid;
-          gap: 8px;
-          font-size: 0.95rem;
-          color: #166534;
-        }
-
-        input {
-          width: 100%;
-          padding: 14px 16px;
-          border-radius: 14px;
-          border: 1px solid #d1e7d0;
-          background: #f7fdf8;
-          color: #0f172a;
-          font-size: 1rem;
-          outline: none;
-        }
-
-        input::placeholder {
-          color: #6b7280;
-        }
-
-        input:focus {
-          border-color: #16a34a;
-          box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
-        }
-
-        button {
-          width: 100%;
-          padding: 14px 18px;
-          border: none;
-          border-radius: 14px;
-          background: #16a34a;
-          color: white;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition:
-            transform 0.15s ease,
-            background-color 0.15s ease;
-        }
-
-        button:hover {
-          background: #15803d;
-          transform: translateY(-1px);
-        }
-
-        .message {
-          margin-top: 16px;
-          color: #166534;
-          background: #dcfce7;
-          padding: 12px 14px;
-          border-radius: 12px;
-          border: 1px solid #86efac;
-        }
-
-        .footer-text {
-          margin-top: 18px;
-          text-align: center;
-          color: #14532d;
-        }
-
-        .footer-text a {
-          color: #166534;
-          text-decoration: underline;
-        }
-
-        .footer-text span {
-          color: #4b5563;
-        }
-      `}</style>
     </main>
   );
 }
