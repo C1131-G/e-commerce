@@ -1,203 +1,104 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import type { FormEvent } from "react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-const RegisterPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+import { registerSchema } from "./schemas/register-schema";
+import type { RegisterSchema } from "./schemas/register-schema";
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+import styles from "./register.module.css";
 
-    if (!name || !email || !password || !confirmPassword) {
-      setMessage("Please fill out all fields.");
-      return;
-    }
+const handleRegister = (_data: RegisterSchema) => {
+  throw new Error("Better Auth registration integration is pending.");
+};
 
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match.");
-      return;
-    }
-
-    setMessage("Creating your account...");
-
-    setTimeout(() => {
-      setMessage(`Account created for ${name}. You can now log in.`);
-    }, 800);
-  };
+export default function RegisterPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterSchema>({ resolver: zodResolver(registerSchema) });
 
   return (
-    <main className="auth-page">
-      <div className="auth-card">
+    <main className={styles.authPage}>
+      <div className={styles.authCard}>
         <h1>Register</h1>
-        <p className="subtitle">Create your account to access the portal.</p>
+        <p className={styles.subtitle}>
+          Create your account to access the portal.
+        </p>
 
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form
+          className={styles.authForm}
+          noValidate
+          onSubmit={handleSubmit(handleRegister)}
+        >
           <label>
             Full Name
             <input
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              {...register("fullName")}
               aria-label="Full name"
               placeholder="Your full name"
             />
+            {errors.fullName ? (
+              <p className={styles.fieldError}>{errors.fullName.message}</p>
+            ) : null}
           </label>
 
           <label>
             Email
             <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              {...register("email")}
               aria-label="Email address"
               placeholder="you@example.com"
+              type="email"
             />
+            {errors.email ? (
+              <p className={styles.fieldError}>{errors.email.message}</p>
+            ) : null}
           </label>
 
           <label>
             Password
             <input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              {...register("password")}
               aria-label="Password"
               placeholder="Create a password"
+              type="password"
             />
+            {errors.password ? (
+              <p className={styles.fieldError}>{errors.password.message}</p>
+            ) : null}
           </label>
 
           <label>
             Confirm Password
             <input
-              type="password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
+              {...register("confirmPassword")}
               aria-label="Confirm password"
               placeholder="Repeat your password"
+              type="password"
             />
+            {errors.confirmPassword ? (
+              <p className={styles.fieldError}>
+                {errors.confirmPassword.message}
+              </p>
+            ) : null}
           </label>
 
-          <button type="submit">Register</button>
+          <button
+            className={styles.button}
+            disabled={isSubmitting}
+            type="submit"
+          >
+            {isSubmitting ? "Creating account..." : "Register"}
+          </button>
         </form>
 
-        {message ? <p className="message">{message}</p> : null}
-
-        <p className="footer-text">
+        <p className={styles.footerText}>
           Already have an account? <Link href="/">Login</Link>
         </p>
       </div>
-
-      <style jsx>{`
-        .auth-page {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 24px;
-          background: #f3fbf4;
-          color: #0f172a;
-        }
-
-        .auth-card {
-          width: min(460px, 100%);
-          padding: 32px;
-          border-radius: 24px;
-          background: #ffffff;
-          border: 1px solid #d8efd4;
-          box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
-        }
-
-        h1 {
-          margin: 0 0 10px;
-          font-size: 2rem;
-          color: #064e3b;
-        }
-
-        .subtitle {
-          margin: 0 0 24px;
-          color: #14532d;
-          line-height: 1.6;
-        }
-
-        .auth-form {
-          display: grid;
-          gap: 16px;
-        }
-
-        label {
-          display: grid;
-          gap: 8px;
-          font-size: 0.95rem;
-          color: #166534;
-        }
-
-        input {
-          width: 100%;
-          padding: 14px 16px;
-          border-radius: 14px;
-          border: 1px solid #d1e7d0;
-          background: #f7fdf8;
-          color: #0f172a;
-          font-size: 1rem;
-          outline: none;
-        }
-
-        input::placeholder {
-          color: #6b7280;
-        }
-
-        input:focus {
-          border-color: #16a34a;
-          box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
-        }
-
-        button {
-          width: 100%;
-          padding: 14px 18px;
-          border: none;
-          border-radius: 14px;
-          background: #16a34a;
-          color: white;
-          font-size: 1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition:
-            transform 0.15s ease,
-            background-color 0.15s ease;
-        }
-
-        button:hover {
-          background: #15803d;
-          transform: translateY(-1px);
-        }
-
-        .message {
-          margin-top: 16px;
-          color: #166534;
-          background: #dcfce7;
-          padding: 12px 14px;
-          border-radius: 12px;
-          border: 1px solid #86efac;
-        }
-
-        .footer-text {
-          margin-top: 18px;
-          color: #14532d;
-          text-align: center;
-        }
-
-        .footer-text a {
-          color: #166534;
-          text-decoration: underline;
-        }
-      `}</style>
     </main>
   );
-};
-
-export default RegisterPage;
+}

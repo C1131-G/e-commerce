@@ -1,0 +1,93 @@
+.dashboardPage {
+  min-height: 100vh;
+  background: #f3f4f6;
+  padding: 24px;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.statsGrid {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statCard {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+.statTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.statValue {
+  color: #16a34a;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.alert {
+  margin-bottom: 24px;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  background: #fee2e2;
+  padding: 16px;
+  color: #b91c1c;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.addButton,
+.ordersButton {
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  color: #ffffff;
+}
+
+.addButton {
+  background: #16a34a;
+}
+
+.ordersButton {
+  background: #2563eb;
+}
+
+.listings {
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+.sectionTitle {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.tableHeaderRow {
+  background: #e5e7eb;
+}
+
+.tableHeaderRow:hover {
+  background: #e5e7eb;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

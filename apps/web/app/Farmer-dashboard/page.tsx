@@ -1,24 +1,31 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@workspace/ui/components/table";
+
+import styles from "./farmer-dashboard.module.css";
+
 export default function FarmerDashboard() {
   const stats = [
     {
-      icon: "🌾",
       title: "Active Listings",
       value: "12",
     },
     {
-      icon: "📦",
       title: "Total Stock",
       value: "850 KG",
     },
     {
-      icon: "🛒",
       title: "Pending Orders",
       value: "5",
     },
     {
-      icon: "💰",
       title: "Revenue",
-      value: "₹25,000",
+      value: "Rs 25,000",
     },
   ];
 
@@ -41,63 +48,58 @@ export default function FarmerDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-4xl font-bold mb-6">👨‍🌾 Farmer Dashboard</h1>
+    <div className={styles.dashboardPage}>
+      <h1 className={styles.title}>Farmer Dashboard</h1>
 
       {/* Stats Cards */}
-      <div className="grid md:grid-cols-4 gap-4 mb-8">
+      <div className={styles.statsGrid}>
         {stats.map((item, index) => (
-          <div key={index} className="bg-white p-5 rounded-xl shadow-md">
-            <div className="text-3xl">{item.icon}</div>
-            <h2 className="text-lg font-semibold mt-2">{item.title}</h2>
-            <p className="text-2xl font-bold text-green-600">{item.value}</p>
+          <div className={styles.statCard} key={index}>
+            <h2 className={styles.statTitle}>{item.title}</h2>
+            <p className={styles.statValue}>{item.value}</p>
           </div>
         ))}
       </div>
 
       {/* Low Stock Alert */}
-      <div className="bg-red-100 border border-red-400 text-red-700 p-4 rounded-lg mb-6">
-        ⚠️ Low Stock Warning: Potato stock is below 25 KG
+      <div className={styles.alert}>
+        Low Stock Warning: Potato stock is below 25 KG
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-4 mb-8">
-        <button className="bg-green-600 text-white px-5 py-3 rounded-lg">
-          ➕ Add New Listing
+      <div className={styles.actions}>
+        <button className={styles.addButton} type="button">
+          Add New Listing
         </button>
 
-        <button className="bg-blue-600 text-white px-5 py-3 rounded-lg">
-          📋 View Orders
+        <button className={styles.ordersButton} type="button">
+          View Orders
         </button>
       </div>
 
       {/* Product Listings */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4">🌱 My Listings</h2>
+      <div className={styles.listings}>
+        <h2 className={styles.sectionTitle}>My Listings</h2>
 
-        <table className="w-full border">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="p-3">Crop</th>
-              <th className="p-3">Stock</th>
-              <th className="p-3">Status</th>
-            </tr>
-          </thead>
+        <Table>
+          <TableHeader>
+            <TableRow className={styles.tableHeaderRow}>
+              <TableHead>Crop</TableHead>
+              <TableHead>Stock</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
+          <TableBody>
             {products.map((product, index) => (
-              <tr key={index} className="border-t">
-                <td className="p-3">{product.name}</td>
-                <td className="p-3">{product.stock}</td>
-                <td className="p-3">
-                  {product.status === "Approved" && "🟢 Approved"}
-                  {product.status === "Pending" && "🟡 Pending"}
-                  {product.status === "Rejected" && "🔴 Rejected"}
-                </td>
-              </tr>
+              <TableRow key={index}>
+                <TableCell>{product.name}</TableCell>
+                <TableCell>{product.stock}</TableCell>
+                <TableCell>{product.status}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
