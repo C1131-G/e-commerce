@@ -1,0 +1,674 @@
+:root {
+  color: #17211b;
+  background: #f6f8f5;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.appShell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: #173f35;
+  color: #f6fbf7;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.brand span {
+  display: block;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.brand small {
+  color: #bad3c9;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+
+.navItem,
+.logoutButton {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.navItem.active,
+.navItem:hover,
+.logoutButton:hover {
+  background: #2d5c4f;
+}
+
+.logoutButton {
+  margin-top: auto;
+}
+
+.content {
+  min-width: 0;
+  padding: 26px;
+}
+
+.topbar,
+.sectionHeader,
+.toolbar,
+.actionRow,
+.loginMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar {
+  margin-bottom: 24px;
+}
+
+.topbar h1,
+.sectionHeader h2,
+.loginIntro h1 {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.topbarActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #617267;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.dateBadge,
+.priorityPill,
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.dateBadge {
+  background: #eef2ef;
+  color: #33453a;
+}
+
+.priorityHigh {
+  background: #ffd6d6;
+  color: #9c1515;
+}
+
+.priorityMedium {
+  background: #ffe8b9;
+  color: #945a00;
+}
+
+.statusBadge {
+  background: #e9f0ff;
+  color: #17458f;
+}
+
+.loginPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(23, 63, 53, 0.82), rgba(23, 63, 53, 0.68)),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=80") center/cover;
+}
+
+.loginPanel {
+  width: min(920px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+}
+
+.loginIntro {
+  background: #173f35;
+  color: #ffffff;
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginIntro p {
+  color: #d9e9e2;
+}
+
+.loginForm {
+  padding: 44px;
+  display: grid;
+  gap: 18px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-weight: 750;
+  color: #26372d;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid #ccd8d0;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #ffffff;
+  color: #17211b;
+}
+
+textarea {
+  resize: vertical;
+}
+
+a {
+  color: #176f51;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton,
+.textButton,
+.iconButton {
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-weight: 850;
+}
+
+.primaryButton {
+  background: #217a5a;
+  color: #ffffff;
+}
+
+.primaryButton:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.secondaryButton,
+.iconButton {
+  background: #e8eee9;
+  color: #26372d;
+}
+
+.dangerButton {
+  background: #ffe1e1;
+  color: #a51717;
+}
+
+.textButton {
+  background: transparent;
+  color: #176f51;
+  padding-inline: 4px;
+}
+
+.successButton {
+  background: #d9f3df;
+  color: #14662c;
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.summaryCard,
+.profilePanel,
+.routePanel,
+.finalReport,
+.notificationItem {
+  background: #ffffff;
+  border: 1px solid #dde6df;
+  border-radius: 8px;
+}
+
+.summaryCard {
+  padding: 20px;
+}
+
+.summaryCard span {
+  color: #5d6e64;
+  font-weight: 800;
+}
+
+.summaryCard strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 2.2rem;
+}
+
+.summaryCard.blue {
+  border-top: 4px solid #377bd1;
+}
+
+.summaryCard.amber {
+  border-top: 4px solid #d38a1c;
+}
+
+.summaryCard.green {
+  border-top: 4px solid #26985a;
+}
+
+.summaryCard.red {
+  border-top: 4px solid #d14646;
+}
+
+.pageStack {
+  display: grid;
+  gap: 18px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #dde6df;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid #e5ebe7;
+  text-align: left;
+}
+
+th {
+  color: #526258;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+td span {
+  display: block;
+  color: #65746b;
+}
+
+.twoColumn,
+.verificationLayout,
+.navigationPage {
+  display: grid;
+  grid-template-columns: minmax(330px, 0.78fr) minmax(0, 1.22fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.searchBox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccd8d0;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #ffffff;
+}
+
+.searchBox input {
+  border: 0;
+  min-width: 0;
+  width: 100%;
+  outline: none;
+}
+
+.farmerList {
+  display: grid;
+  gap: 10px;
+}
+
+.farmerRow {
+  background: #ffffff;
+  border: 1px solid #dde6df;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.farmerRow.selected {
+  border-color: #217a5a;
+  box-shadow: 0 0 0 3px rgba(33, 122, 90, 0.12);
+}
+
+.farmerRow small,
+.documentGroup span {
+  display: block;
+  color: #627168;
+}
+
+.profilePanel,
+.routePanel,
+.stageWorkspace,
+.stageRail,
+.largeMap {
+  padding: 20px;
+}
+
+.profileGrid,
+.routeStats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.infoItem {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 4px 8px;
+  background: #f7faf8;
+  border: 1px solid #e2ebe5;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.infoItem span {
+  color: #65746b;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.infoItem strong {
+  grid-column: 2;
+  overflow-wrap: anywhere;
+}
+
+.mapPreview,
+.largeMap {
+  min-height: 190px;
+  margin-top: 18px;
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(33, 122, 90, 0.14) 1px, transparent 1px),
+    linear-gradient(rgba(33, 122, 90, 0.14) 1px, transparent 1px),
+    #edf4ee;
+  background-size: 34px 34px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #28513f;
+  padding: 20px;
+}
+
+.mapPreview strong {
+  display: block;
+}
+
+.documentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.documentGroup {
+  background: #f7faf8;
+  border: 1px solid #e2ebe5;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.documentGroup h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.documentGroup span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.stageRail {
+  background: #ffffff;
+  border: 1px solid #dde6df;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+}
+
+.stageButton {
+  border: 1px solid #e1e9e4;
+  border-radius: 8px;
+  background: #f9fbfa;
+  color: #26372d;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) 18px;
+  gap: 8px;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px;
+  text-align: left;
+}
+
+.stageButton.selected {
+  background: #e4f3eb;
+  border-color: #217a5a;
+}
+
+.stageWorkspace {
+  background: #ffffff;
+  border: 1px solid #dde6df;
+  border-radius: 8px;
+}
+
+.purposeText {
+  margin: 10px 0 18px;
+  color: #526258;
+}
+
+.checkGrid,
+.formGrid,
+.reportSummary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.checkItem {
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  background: #f7faf8;
+  border: 1px solid #e2ebe5;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.wideField {
+  margin-top: 16px;
+}
+
+.actionRow {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.finalReport {
+  margin-top: 22px;
+  padding: 18px;
+}
+
+.reportSummary {
+  margin: 14px 0;
+}
+
+.reportSummary span {
+  background: #f7faf8;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.largeMap {
+  min-height: 460px;
+  margin: 0;
+}
+
+.notificationItem {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: start;
+  padding: 18px;
+}
+
+.notificationItem.unread {
+  border-color: #217a5a;
+  background: #f2fbf5;
+}
+
+.notificationItem p {
+  margin: 4px 0;
+  color: #526258;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .appShell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 280px;
+    z-index: 20;
+    transform: translateX(-100%);
+    transition: transform 160ms ease;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .mobileOnly {
+    display: inline-flex;
+  }
+
+  .twoColumn,
+  .verificationLayout,
+  .navigationPage {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .content {
+    padding: 18px;
+  }
+
+  .topbar,
+  .sectionHeader,
+  .toolbar,
+  .loginMeta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .loginPanel,
+  .summaryGrid,
+  .profileGrid,
+  .documentGrid,
+  .checkGrid,
+  .formGrid,
+  .reportSummary,
+  .routeStats {
+    grid-template-columns: 1fr;
+  }
+
+  .loginIntro,
+  .loginForm {
+    padding: 28px;
+  }
+
+  .farmerRow,
+  .notificationItem {
+    grid-template-columns: 1fr;
+  }
+}
