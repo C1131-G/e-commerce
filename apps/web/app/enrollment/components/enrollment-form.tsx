@@ -11,9 +11,17 @@ import {
 import type { ChangeEvent, FormEvent, ReactNode } from "react";
 import { useState } from "react";
 
-import { farmTypes, initialEnrollmentData, validateEnrollmentStep } from '../schemas/enrollmentSchema';
-import type { EnrollmentData, EnrollmentErrors, EnrollmentField } from '../schemas/enrollmentSchema';
-import EnrollmentStepper from "./EnrollmentStepper";
+import {
+  farmTypes,
+  initialEnrollmentData,
+  validateEnrollmentStep,
+} from "../schemas/enrollment-schema";
+import type {
+  EnrollmentData,
+  EnrollmentErrors,
+  EnrollmentField,
+} from "../schemas/enrollment-schema";
+import EnrollmentStepper from "./enrollment-stepper";
 
 const stepContent = [
   {
@@ -38,7 +46,110 @@ const stepContent = [
   },
 ] as const;
 
-export default function EnrollmentForm() {
+const Field = ({ label, error, className = "", ...inputProps }: FieldProps) => {
+  const errorId = `${inputProps.name}-error`;
+
+  return (
+    <label className={`grid gap-2 ${className}`}>
+      <span className="text-sm font-semibold text-slate-700">{label}</span>
+      <input
+        {...inputProps}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        className={`rounded-xl border bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
+          error
+            ? "border-red-400 focus:border-red-500 focus:ring-red-100"
+            : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-100"
+        }`}
+      />
+      {error ? (
+        <span
+          id={errorId}
+          className="text-xs font-medium text-red-600"
+          role="alert"
+        >
+          {error}
+        </span>
+      ) : null}
+    </label>
+  );
+};
+
+const SelectField = ({
+  label,
+  error,
+  ...selectProps
+}: {
+  label: string;
+  name: EnrollmentField;
+  value: string;
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  error?: string;
+}) => (
+  <label className="grid gap-2">
+    <span className="text-sm font-semibold text-slate-700">{label}</span>
+    <select
+      {...selectProps}
+      className={`rounded-xl border bg-slate-50 px-4 py-3 text-sm outline-none transition focus:bg-white focus:ring-4 ${
+        error
+          ? "border-red-400 focus:ring-red-100"
+          : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-100"
+      }`}
+    >
+      <option value="">Select an activity</option>
+      {farmTypes.map((type) => (
+        <option key={type} value={type}>
+          {type}
+        </option>
+      ))}
+    </select>
+    {error ? (
+      <span className="text-xs font-medium text-red-600" role="alert">
+        {error}
+      </span>
+    ) : null}
+  </label>
+);
+
+const ReviewRow = ({ label, value }: { label: string; value: string }) => (
+  <div>
+    <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+      {label}
+    </dt>
+    <dd className="mt-0.5 text-sm font-medium text-slate-700">{value}</dd>
+  </div>
+);
+
+const ReviewGroup = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
+  <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+    <h3 className="mb-4 font-bold text-slate-900">{title}</h3>
+    <dl className="space-y-3">{children}</dl>
+  </section>
+);
+
+const Review = ({ data }: { data: EnrollmentData }) => (
+  <div className="grid gap-4 sm:grid-cols-2">
+    <ReviewGroup title="Personal information">
+      <ReviewRow label="Name" value={data.fullName} />
+      <ReviewRow label="Email" value={data.email} />
+      <ReviewRow label="Phone" value={data.phone} />
+    </ReviewGroup>
+    <ReviewGroup title="Farm information">
+      <ReviewRow label="Farm" value={data.farmName} />
+      <ReviewRow label="Activity" value={data.farmType} />
+      <ReviewRow label="Size" value={`${data.farmSize} acres`} />
+      <ReviewRow label="Location" value={`${data.district}, ${data.state}`} />
+    </ReviewGroup>
+  </div>
+);
+
+const EnrollmentForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState<EnrollmentData>(
     initialEnrollmentData
@@ -50,35 +161,35 @@ export default function EnrollmentForm() {
   const currentStep = stepContent[activeStep] ?? stepContent[0];
   const StepIcon = currentStep.icon;
 
-  function updateField(
+  const updateField = (
     field: EnrollmentField,
     value: EnrollmentData[EnrollmentField]
-  ) {
+  ) => {
     setFormData((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
-  }
+  };
 
-  function handleInputChange(
+  const handleInputChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) {
+  ) => {
     updateField(event.target.name as EnrollmentField, event.target.value);
-  }
+  };
 
-  function goForward() {
+  const goForward = () => {
     const nextErrors = validateEnrollmentStep(formData, activeStep);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {
       setActiveStep((step) => Math.min(step + 1, stepContent.length - 1));
     }
-  }
+  };
 
-  function goBack() {
+  const goBack = () => {
     setErrors({});
     setActiveStep((step) => Math.max(step - 1, 0));
-  }
+  };
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (activeStep < stepContent.length - 1) {
@@ -87,10 +198,11 @@ export default function EnrollmentForm() {
     }
 
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 700));
-    setIsSubmitting(false);
-    setIsComplete(true);
-  }
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsComplete(true);
+    }, 700);
+  };
 
   if (isComplete) {
     return (
@@ -254,6 +366,7 @@ export default function EnrollmentForm() {
                   updateField("termsAccepted", event.target.checked)
                 }
                 className="mt-0.5 size-4 accent-emerald-600"
+                aria-label="Confirm declaration"
               />
               <span className="text-sm leading-6 text-slate-600">
                 I confirm that the information provided is accurate and I am
@@ -286,17 +399,21 @@ export default function EnrollmentForm() {
           disabled={isSubmitting}
           className="inline-flex min-w-36 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition hover:bg-emerald-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:opacity-60"
         >
-          {isSubmitting
-            ? "Submitting..."
-            : (activeStep === stepContent.length - 1
-              ? "Submit application"
-              : "Continue")}
-          {!isSubmitting ? <ArrowRight size={17} weight="bold" /> : null}
+          {(() => {
+            if (isSubmitting) {
+              return "Submitting...";
+            }
+            if (activeStep === stepContent.length - 1) {
+              return "Submit application";
+            }
+            return "Continue";
+          })()}
+          {isSubmitting ? null : <ArrowRight size={17} weight="bold" />}
         </button>
       </div>
     </form>
   );
-}
+};
 
 interface FieldProps {
   label: string;
@@ -312,113 +429,4 @@ interface FieldProps {
   step?: string;
 }
 
-function Field({ label, error, className = "", ...inputProps }: FieldProps) {
-  const errorId = `${inputProps.name}-error`;
-
-  return (
-    <label className={`grid gap-2 ${className}`}>
-      <span className="text-sm font-semibold text-slate-700">{label}</span>
-      <input
-        {...inputProps}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        className={`rounded-xl border bg-slate-50 px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:bg-white focus:ring-4 ${
-          error
-            ? "border-red-400 focus:border-red-500 focus:ring-red-100"
-            : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-100"
-        }`}
-      />
-      {error ? (
-        <span
-          id={errorId}
-          className="text-xs font-medium text-red-600"
-          role="alert"
-        >
-          {error}
-        </span>
-      ) : null}
-    </label>
-  );
-}
-
-function SelectField({
-  label,
-  error,
-  ...selectProps
-}: {
-  label: string;
-  name: EnrollmentField;
-  value: string;
-  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-  error?: string;
-}) {
-  return (
-    <label className="grid gap-2">
-      <span className="text-sm font-semibold text-slate-700">{label}</span>
-      <select
-        {...selectProps}
-        className={`rounded-xl border bg-slate-50 px-4 py-3 text-sm outline-none transition focus:bg-white focus:ring-4 ${
-          error
-            ? "border-red-400 focus:ring-red-100"
-            : "border-slate-200 focus:border-emerald-500 focus:ring-emerald-100"
-        }`}
-      >
-        <option value="">Select an activity</option>
-        {farmTypes.map((type) => (
-          <option key={type} value={type}>
-            {type}
-          </option>
-        ))}
-      </select>
-      {error ? (
-        <span className="text-xs font-medium text-red-600" role="alert">
-          {error}
-        </span>
-      ) : null}
-    </label>
-  );
-}
-
-function Review({ data }: { data: EnrollmentData }) {
-  return (
-    <div className="grid gap-4 sm:grid-cols-2">
-      <ReviewGroup title="Personal information">
-        <ReviewRow label="Name" value={data.fullName} />
-        <ReviewRow label="Email" value={data.email} />
-        <ReviewRow label="Phone" value={data.phone} />
-      </ReviewGroup>
-      <ReviewGroup title="Farm information">
-        <ReviewRow label="Farm" value={data.farmName} />
-        <ReviewRow label="Activity" value={data.farmType} />
-        <ReviewRow label="Size" value={`${data.farmSize} acres`} />
-        <ReviewRow label="Location" value={`${data.district}, ${data.state}`} />
-      </ReviewGroup>
-    </div>
-  );
-}
-
-function ReviewGroup({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-      <h3 className="mb-4 font-bold text-slate-900">{title}</h3>
-      <dl className="space-y-3">{children}</dl>
-    </section>
-  );
-}
-
-function ReviewRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-        {label}
-      </dt>
-      <dd className="mt-0.5 text-sm font-medium text-slate-700">{value}</dd>
-    </div>
-  );
-}
+export default EnrollmentForm;

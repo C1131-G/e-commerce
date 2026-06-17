@@ -42,20 +42,20 @@ const stepFields: EnrollmentField[][] = [
   [],
 ];
 
-export function validateEnrollmentStep(
+export const validateEnrollmentStep = (
   data: EnrollmentData,
   step: number
-): EnrollmentErrors {
+): EnrollmentErrors => {
   const errors: EnrollmentErrors = {};
 
   if (step === 0) {
     if (data.fullName.trim().length < 3) {
       errors.fullName = "Enter your full name (at least 3 characters).";
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(data.email.trim())) {
       errors.email = "Enter a valid email address.";
     }
-    if (!/^\+?[0-9()\-\s]{10,18}$/.test(data.phone.trim())) {
+    if (!/^\+?[0-9()\-\s]{10,18}$/u.test(data.phone.trim())) {
       errors.phone = "Enter a valid phone number.";
     }
   }
@@ -79,7 +79,7 @@ export function validateEnrollmentStep(
   }
 
   if (step === 2) {
-    if (!/^[A-Za-z0-9-]{6,20}$/.test(data.identityNumber.trim())) {
+    if (!/^[A-Za-z0-9-]{6,20}$/u.test(data.identityNumber.trim())) {
       errors.identityNumber = "Enter a valid ID number (6-20 characters).";
     }
     if (!data.termsAccepted) {
@@ -88,8 +88,6 @@ export function validateEnrollmentStep(
   }
 
   return errors;
-}
+};
 
-export function getFieldsForStep(step: number) {
-  return stepFields[step] ?? [];
-}
+export const getFieldsForStep = (step: number) => stepFields[step] ?? [];
