@@ -1,25 +1,30 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import type { FormEvent } from "react";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!email || !password) {
-      setMessage('Please enter both email and password.');
+      setMessage("Please enter both email and password.");
       return;
     }
 
-    setMessage('Logging in...');
+    setMessage("Logging in...");
 
     // Replace this with your real auth logic.
     setTimeout(() => {
       setMessage(`Welcome back, ${email}!`);
+      // After showing the welcome message, navigate to the dashboard
+      router.push("/Farmer-dashboard");
     }, 600);
   }
 
@@ -27,7 +32,9 @@ export default function LoginPage() {
     <main className="login-page">
       <div className="login-card">
         <h1>Login</h1>
-        <p className="subtitle">Access your account with your email and password.</p>
+        <p className="subtitle">
+          Access your account with your email and password.
+        </p>
 
         <form onSubmit={handleSubmit} className="login-form">
           <label>
@@ -137,7 +144,9 @@ export default function LoginPage() {
           font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
-          transition: transform 0.15s ease, background-color 0.15s ease;
+          transition:
+            transform 0.15s ease,
+            background-color 0.15s ease;
         }
 
         button:hover {

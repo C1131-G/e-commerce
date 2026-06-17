@@ -1,5 +1,6 @@
-import LoginPage from './login-page/page';
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return <LoginPage />;
+export default function Home() {
+  // Send users to the login page by default
+  redirect("/login-page");
 }
