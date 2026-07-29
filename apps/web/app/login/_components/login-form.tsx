@@ -1,63 +1,103 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "@tanstack/react-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
 
 import { authClient } from "@/lib/auth-client";
 
 import { loginSchema } from "../_schemas/login.schema";
-import type { LoginFormValues } from "../_schemas/login.schema";
 
 const LoginForm = () => {
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm({
+    defaultValues: {
+      emailOrPhone: "",
+      password: "",
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const { error } = await authClient.signIn.email({
+          email: value.emailOrPhone,
+          password: value.password,
+        });
+
+        if (error) {
+          console.error(error);
+          return;
+        }
+
+        router.push("/dashboard");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    validators: {
+      onChange: loginSchema,
+    },
   });
 
-  const handleLoginSubmit = async (data: LoginFormValues) => {
-    try {
-      const { error } = await authClient.signIn.email({
-        email: data.emailOrPhone,
-        password: data.password,
-      });
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleLoginSubmit)}>
-      <div>
-        <label htmlFor="emailOrPhone">Email or Phone</label>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="space-y-4"
+    >
+      <form.Field name="emailOrPhone">
+        {(field) => (
+          <div>
+            <label htmlFor="emailOrPhone">Email or Phone</label>
 
-        <input id="emailOrPhone" type="text" {...register("emailOrPhone")} />
+            <input
+              id="emailOrPhone"
+              type="text"
+              aria-label="Email or Phone"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
 
-        {errors.emailOrPhone && <p>{errors.emailOrPhone.message}</p>}
-      </div>
+            {field.state.meta.errors.length > 0 && (
+              <p className="text-sm text-red-500">
+                {field.state.meta.errors[0]?.message}
+              </p>
+            )}
+          </div>
+        )}
+      </form.Field>
 
-      <div>
-        <label htmlFor="password">Password</label>
+      <form.Field name="password">
+        {(field) => (
+          <div>
+            <label htmlFor="password">Password</label>
 
-        <input id="password" type="password" {...register("password")} />
+            <input
+              id="password"
+              type="password"
+              aria-label="Password"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              className="w-full rounded-md border px-3 py-2"
+            />
 
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
+            {field.state.meta.errors.length > 0 && (
+              <p className="text-sm text-red-500">
+                {field.state.meta.errors[0]?.message}
+              </p>
+            )}
+          </div>
+        )}
+      </form.Field>
 
-      <button type="submit">Login</button>
+      <button
+        type="submit"
+        className="w-full rounded-md bg-black px-4 py-2 text-white"
+      >
+        Login
+      </button>
 
       <Link href="/forgot-password">Forgot Password?</Link>
     </form>
