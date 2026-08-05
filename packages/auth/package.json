@@ -1,0 +1,15 @@
+{
+  "name": "@workspace/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/auth.ts"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.23",
+    "@workspace/db": "workspace:*",
+    "better-auth": "^1.6.23",
+    "drizzle-orm": "^0.45.2"
+  }
+}
